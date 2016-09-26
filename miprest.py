@@ -56,12 +56,14 @@ class MIPReSt(object):
             for more details).
         '''
         self.projDirectory = projDirectory
-        if self.icaOptions is None:
-            icaOptions = {}
-            icaOptions['algorithm'] = 'parallel fp'
-            icaOptions['nonlinearity'] = 'logcosh'
-            icaOptions['maxIterations'] = 500
-            icaOptions['tolerance'] = 1.0e-05
+        if icaOptions is None:
+            self.icaOptions = {}
+            self.icaOptions['algorithm'] = 'parallel fp'
+            self.icaOptions['nonlinearity'] = 'logcosh'
+            self.icaOptions['maxIterations'] = 500
+            self.icaOptions['tolerance'] = 1.0e-05
+        else:
+            self.icaOptions = icaOptions
         self.avgMethod = avgMethod
         self.icaMethod = icaMethod
         return
