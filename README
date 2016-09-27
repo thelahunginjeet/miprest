@@ -38,7 +38,7 @@ the dimension of the sparse subspace, which I will call nsparse in what follows.
 
 >># eigenvalue stopping rules can tell you the dimension of the Gaussian subspace
 >># there are many rules to choose from (see stopping.py); I'm using broken stick here.
->>stop = stopping.StoppingRules(Xtilde)
+>>stop = stopping.StoppingRule(Xtilde)
 >>ng = stop.broken_stick()
 
 >># finally, you can construct a basis for the Gaussian subspace (and the 'signals')

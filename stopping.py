@@ -29,7 +29,7 @@ def corrmatrix(X):
     return dot(sX,sX.T)/(sX.shape[0] - 1)
 
 
-class StoppingRules(object):
+class StoppingRule(object):
     '''
     Class for computing the number of principal components to retain for a data matrix.
     Covariance and correlation matrices, along with their eigenvalues, are pre-computed
@@ -115,8 +115,7 @@ class StoppingRules(object):
         s = np.zeros((1000,self.N))
         for i in xrange(0,1000):
             R = np.random.rand(self.N*self.p).reshape((self.N,self.p))
-            Y = R - R.mean(axis=1)[:,np.newaxis]
-            M0_r = np.dot(Y,Y.T)/(self.N-1)
+            M0_r = covmatrix(R)
             _,s_temp,_ = np.linalg.svd(M0_r, full_matrices =False)
             s[i,:] = s_temp
         s_crit = np.percentile(s,100*(1-pcrit),axis = 0)
@@ -126,7 +125,7 @@ class StoppingRules(object):
                 c = c+1
         return c
 
-
+    '''
     def random_lambda(self,pcrit = 0.05):
         """performs a p-value statistics test on the eigenvalues of 999 permutations of the data matrix"""
         s0 = self.covlambda
@@ -134,10 +133,8 @@ class StoppingRules(object):
         # compute
         for i in xrange(0,999):
             R = np.random.permutation(self.data.flatten()).reshape((self.data.shape))
-            Y = R - R.mean(axis=1)[:,np.newaxis]
-            M_r = np.dot(Y,Y.T)/(self.N-1)
+            M_r = covmatrix(R)
             _,s_temp,_ = np.linalg.svd(M_r, full_matrices = False)
-            # s[i,:] = s_temp
             Ng += (s_temp > s0)
         #select
         c = 0
@@ -145,3 +142,4 @@ class StoppingRules(object):
             if (Ng[i]+1)/1000.0 < pcrit:
                 c = c + 1
         return c
+    '''
