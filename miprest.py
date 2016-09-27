@@ -9,10 +9,11 @@ miprest.py
 Created by Kevin Brown on 2016-09-19.
 """
 
-from pycar import RAICAR
+from pycar import raicar
 from rpy2ica import fastica as rfastica
 from pyica import fastica
-from numpy import ceil,tile,newaxis
+from numpy import ceil,tile,newaxis,delete
+from numpy.random import permutation
 import pylab
 
 
@@ -85,7 +86,7 @@ class MIPReSt(object):
 
     def decimated_decomposition(self,X,ndec=10,dfactor=2):
         '''
-        Performs RAICAR runs on the input data nrep times, decimating by a
+        Performs RAICAR runs on the input data ndec times, decimating by a
         factor of dfactor.  By default, full rank extraction of the matrix
         X (extraction of the same number of signals as the number of rows of
         X) is performed.

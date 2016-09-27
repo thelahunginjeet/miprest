@@ -21,7 +21,7 @@ Example usage of the entire pipeline (data to decompose should be in an Nmixture
 >># you can run the parent and decimated decompositions in either order
 >># this block will run 100 2-fold decimations of the input data
 >>mip.parent_decomposition(X)
->>mip.decimated_decomposition(X,dfac=2,nrep=100)
+>>mip.decimated_decomposition(X,dfactor=2,ndec=100)
 
 >># if you haven't run BOTH decimations, this function will print an error and return (None,None)
 >>R,deltaij = mip.compute_R_delta() # works on stored reproducibility data
