@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from numpy import array,median
 
+
 def plot_R_delta(self,R,deltaij):
     '''
     Makes an R/delta (Reproducbility and its fluctuations) plot that lets you
@@ -13,6 +14,7 @@ def plot_R_delta(self,R,deltaij):
     medR = median(R,axis=0)
     meddij = median(deltaij,axis=0)
     signum = array(range(1,len(medR)+1))
+    nSig = len(medR)
 
     fig,ax = plt.subplots()
     # sizing optional?

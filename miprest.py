@@ -12,7 +12,7 @@ Created by Kevin Brown on 2016-09-19.
 from pycar import raicar
 from rpy2ica import fastica as rfastica
 from pyica import fastica
-from numpy import ceil,tile,newaxis,delete
+from numpy import ceil,tile,newaxis,delete,zeros,sort,argsort
 from numpy.random import permutation
 import pylab
 
@@ -109,6 +109,8 @@ class MIPReSt(object):
         '''
         # structure to hold the results
         self.children = {}.fromkeys(range(ndec))
+        for k in self.children:
+            self.children[k] = {}
         # RAICAR object to peform the decompositions
         raic = raicar.RAICAR(projDirectory = 'scratch',nSignals=X.shape[0],K=30,avgMethod=self.avgMethod,icaMethod=self.icaMethod,icaOptions=self.icaOptions)
         # loop over decimations
@@ -118,7 +120,7 @@ class MIPReSt(object):
             raic.runall(Xd)
             self.children[d]['R'] = raic.read_reproducibility()
             # do we need to save these?
-            self.children['S'],self.children[d]['A'] = raic.read_raicar_components()
+            self.children[d]['S'],self.children[d]['A'] = raic.read_raicar_components()
         return
 
 
@@ -139,10 +141,11 @@ class MIPReSt(object):
         R = zeros((ndec,nsig))
         # transfer R values
         R[0,:] = sort(self.parent['R'])[::-1]
+        deltaij = zeros((ndec-1,nsig))
         for i in range(1,ndec):
-            R[i,:] = sort(self.children[i]['R'])[::-1]
+            R[i,:] = sort(self.children[i-1]['R'])[::-1]
         # compute delta_ij
-        delta[i][j] = abs(R - tile(R[0,:],(ndec,1)))
+        deltaij = abs(R - tile(R[0,:],(ndec,1)))
         return R,deltaij
 
 
