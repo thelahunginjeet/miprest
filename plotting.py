@@ -4,7 +4,7 @@ import matplotlib.patches as mpatches
 from numpy import array,median
 
 
-def plot_R_delta(self,R,deltaij):
+def plot_R_delta(R,deltaij):
     '''
     Makes an R/delta (Reproducbility and its fluctuations) plot that lets you
     determine the dimension of the sparse subspace.  The median R and deltaij

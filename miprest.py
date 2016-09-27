@@ -12,7 +12,7 @@ Created by Kevin Brown on 2016-09-19.
 from pycar import raicar
 from rpy2ica import fastica as rfastica
 from pyica import fastica
-from numpy import ceil,tile,newaxis,delete,zeros,sort,argsort
+from numpy import ceil,tile,newaxis,delete,zeros,sort,argsort,dot
 from numpy.random import permutation
 import pylab
 

@@ -8,7 +8,7 @@ stopping.py
 
 Created by Kevin Brown on 2016-07-15.
 """
-
+import numpy as np
 from numpy import newaxis,dot,log2,log
 from numpy.linalg import svd
 from scipy.stats import chisqprob
@@ -89,10 +89,10 @@ class StoppingRules(object):
     def broken_stick(self):
         """Broken-stick model: returns a vector of the difference between an eigenvalue and its corresponding
         broken stick counterpart. Drop any signal for which this value is -ve."""
-        s0 = self.s_cov
+        s0 = self.covlambda
         n = self.N
         l = np.zeros((n,1))
-        for j in xrange (0,n):
+        for j in xrange(0,n):
             l[n-j-1] = (1./n)*np.cumsum(1./(n-j))
         return s0-l.T
 
@@ -101,9 +101,9 @@ class StoppingRules(object):
         """
         Calculates the information dimension (see Cangelosi 2007).
         """
-        s_eig = self.s_cov
+        s_eig = self.covlambda
         pk = self.covlambda/np.sum(self.covlambda)
-        h = -1*sum*(pk*log2(pk))/log2(self.N)
+        h = -1.0*sum(pk*log2(pk))/log2(self.N)
         return self.N**h
 
 
@@ -111,7 +111,7 @@ class StoppingRules(object):
         """performs the parallel analysis algorithm on the covariance matrix. It creates 1000 random data matrices
         in [0,1] and computes the 95th percentile of random eigenvalues the covariance matrices. Any signal for which
         eig(data)>eig_95pc(random) is retained"""
-        s0 = self.s_cov
+        s0 = self.covlambda
         s = np.zeros((1000,self.N))
         for i in xrange(0,1000):
             R = np.random.rand(self.N*self.p).reshape((self.N,self.p))
@@ -129,7 +129,7 @@ class StoppingRules(object):
 
     def random_lambda(self,pcrit = 0.05):
         """performs a p-value statistics test on the eigenvalues of 999 permutations of the data matrix"""
-        s0 = self.s_cov
+        s0 = self.covlambda
         Ng = np.zeros(self.N)
         # compute
         for i in xrange(0,999):
