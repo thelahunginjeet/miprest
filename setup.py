@@ -13,7 +13,7 @@ setup(name='miprest',
       url='https://github.com/thelahunginjeet/miprest',
       packages=['miprest'],
       package_dir = {'miprest': ''},
-      install_requires = ['pycar'],
+      install_requires = ['pycar','pyica'],
       license='BSD-3',
       classifiers=[
           'License :: OSI Approved :: BSD-3 License',

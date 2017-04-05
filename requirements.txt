@@ -1,1 +1,2 @@
 git+https://github.com/thelahunginjeet/pycar#egg=pycar
+git+https://github.com/thelahunginjeet/pyica#egg=pyica

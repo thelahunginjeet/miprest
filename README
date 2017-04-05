@@ -6,40 +6,44 @@ all available and actively maintained at github.com/thelahunginjeet:
 
 pycar
 pyica
-rpy2ica
 
+If you use:
+
+pip install -r requirements.txt
+
+These packages will be installed automatically when miprest is installed.
 
 Example usage of the entire pipeline (data to decompose should be in an Nmixtures x Nsamples matrix X):
 
->># import necessary modules
->>import miprest,plotting,stopping,pca
+# import necessary modules
+>>from miprest import miprest,plotting,stopping,pca
 
->># initializes with default options (default directory location and options for ica)
+# initializes with default options (default directory location and options for ica)
 >>mip = MIPReSt() # uses default options
 
->># you can run the parent and decimated decompositions in either order
->># this block will run 100 2-fold decimations of the input data
+# you can run the parent and decimated decompositions in either order
+# this block will run 100 2-fold decimations of the input data
 >>mip.parent_decomposition(X)
 >>mip.decimated_decomposition(X,dfactor=2,ndec=100)
 
->># if you haven't run BOTH decimations, this function will print an error and return (None,None)
+# if you haven't run BOTH decimations, this function will print an error and return (None,None)
 >>R,deltaij = mip.compute_R_delta() # works on stored reproducibility data
 
->># make the R-delta plot and inspect it to determine nsparse
+# make the R-delta plot and inspect it to determine nsparse
 >>fig = plotting.plot_R_delta(R,deltaij)
 >>fig.show()
 
 At this point, you should have inspected the R/delta plot and be able to determine
 the dimension of the sparse subspace, which I will call nsparse in what follows.
 
->># project out the sparse subspace
+# project out the sparse subspace
 >>Xtilde = mip.project_sparse(X,nsparse)
 
->># eigenvalue stopping rules can tell you the dimension of the Gaussian subspace
->># there are many rules to choose from (see stopping.py); I'm using broken stick here.
+# eigenvalue stopping rules can tell you the dimension of the Gaussian subspace
+# there are many rules to choose from (see stopping.py); I'm using broken stick here.
 >>stop = stopping.StoppingRule(Xtilde)
 >>ng = stop.broken_stick()
 
->># finally, you can construct a basis for the Gaussian subspace (and the 'signals')
->># via principal components
+# finally, you can construct a basis for the Gaussian subspace (and the 'signals')
+# via principal components
 >>W,S = pca.pca(Xtilde,ng) # PCA on the matrix of Gaussian components
