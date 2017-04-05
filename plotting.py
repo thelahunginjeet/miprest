@@ -1,7 +1,41 @@
-from kbutil.plotting import pylab_pretty_plot
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from numpy import array,median
+
+def pylab_pretty_plot(lines=2,width=3,size=4,labelsize=16,markersize=10,fontsize=20,lfontsize=16,lframeon=False,usetex=True):
+    """
+    Changes pylab plot defaults to get nicer plots - frame size, marker size, etc.
+
+    Parameters:
+    ------------
+    lines      : linewidth
+    width      : width of framelines and tickmarks
+    size       : tick mark length
+    labelsize  : font size of ticklabels
+    markersize : size of plotting markers
+    fontsize   : size of font for axes labels
+    lfontsize  : legend fontsize
+    usetex     : use latex for labels/text?
+
+    """
+    pylab.rc("lines",linewidth=lines)
+    pylab.rc("lines",markeredgewidth=size/3)
+    pylab.rc("lines",markersize=markersize)
+    pylab.rc("ytick",labelsize=labelsize)
+    pylab.rc("ytick.major",pad=size)
+    pylab.rc("ytick.minor",pad=size)
+    pylab.rc("ytick.major",size=size*1.8)
+    pylab.rc("ytick.minor",size=size)
+    pylab.rc("xtick",labelsize=labelsize)
+    pylab.rc("xtick.major",pad=size)
+    pylab.rc("xtick.minor",pad=size)
+    pylab.rc("xtick.major",size=size*1.8)
+    pylab.rc("xtick.minor",size=size)
+    pylab.rc("axes",linewidth=width)
+    pylab.rc("text",usetex=usetex)
+    pylab.rc("font",size=fontsize)
+    pylab.rc("legend",fontsize=lfontsize)
+    pylab.rc("legend",frameon=lframeon)
 
 
 def plot_R_delta(R,deltaij):
@@ -42,62 +76,3 @@ def plot_R_delta(R,deltaij):
     ax.yaxis.set_tick_params(width=2)
 
     return fig
-    #repro_mean = np.zeros((1,nSig))
-    #repro_std = np.zeros((1,nSig))
-    #repro_median = np.zeros((1,nSig))
-    #for i in xrange(0,nSig):
-    #    repro_mean[0,i] = np.mean(true_repro[:,i])
-    #    repro_std[0,i] = np.std(true_repro[:,i])
-    #    repro_median[0,i] = np.median(true_repro[:,i])
-
-    #delta_ij = np.zeros((nSamp,nSig))
-    #for i in xrange(0,nSamp):
-    #    for j in xrange(0,nSig):
-    #        delta_ij[i][j] = np.abs(true_repro[i][j]-true_repro[0][j])
-
-    #delta_mean = np.zeros((1,nSig))
-    #delta_std = np.zeros((1,nSig))
-    #delta_median = np.zeros((1,nSig))
-
-    #for i in xrange(0,nSig):
-    #    delta_mean[0,i] = np.mean(delta_ij[:,i])
-    #    delta_std[0,i] = np.std(delta_ij[:,i])
-    #    delta_median[0,i] = np.median(delta_ij[:,i])
-    #sig_no = np.linspace(1,nSig,nSig)
-
-#     fig,ax = plt.subplots()
-#     fig.set_figwidth(10)
-#     fig.set_figheight(5)
-#     kbplt.pylab_pretty_plot(lines = 4, width =4, size = 8, labelsize =25, markersize = 13, fontsize = 32, usetex = True)
-#     ax.plot(sig_no.T + 0.1, true_repro.T,'r.', label = r'$R_{ij}$', alpha = 0.5, mec = 'none')
-#     ax.plot(sig_no.T-0.1, delta_ij.T,'k.', label = r'$\delta_{ij}$', alpha = 0.5,mec = 'none')
-#     ax.scatter(sig_no.T + 0.1, repro_median.T, s = 400, c = 'r', marker = '_', edgecolor = 'r', alpha = 1., linewidth = 2, rasterized = True)
-#     ax.scatter(sig_no.T - 0.1, delta_median.T, s = 400, c = 'k', marker = '_', edgecolor = 'k', alpha = 1., linewidth = 2, rasterized = True)
-#
-#     red_patch = mpatches.Patch(ls = '-',color='red', label=r'$R_{ij}$', alpha = 0.7)
-#     black_patch = mpatches.Patch(ls = '-',color = 'black', label = r'$\delta_{ij}$', alpha = 0.7)
-#     plt.legend(handles=[red_patch,black_patch], bbox_to_anchor = (.31,0.63), prop = {'size':25})
-#
-#     ax.set_xlabel(r'Independent components', size = 25)
-#     ax.set_ylabel(r'$\delta_{ij}$ and $R_{ij}$', size = 25)
-#     ax.set_xlim([0,nSig+1])
-#     ax.set_ylim([-0.2,1.2])
-#     plt.yticks([0,0.5,1])
-#     ax.xaxis.set_major_locator(plt.NullLocator())
-#     ax.yaxis.set_tick_params(width=2)
-#
-#     fig.savefig('Fisher_delta_repro.pdf', bbox_inches = 'tight')
-#
-#     fig1, axes1 = plt.subplots(ncols=4, figsize = plt.figaspect(1.2/4))
-#     kbplt.pylab_pretty_plot(lines = 4, width =4, size = 8, labelsize =25, markersize = 13, fontsize = 32, usetex = True)
-#     for axes , i in zip(axes1,[0,1,2,3]):
-#         kbplt.plot_hist(results[0]['raic_comp'][i,:].T, nbins = 15, ax = axes, kde = True)
-# #    axes.set_xlim([-3.5,3.5])
-# #    axes.set_ylim([-0.1,1.1])
-#         axes.set_xlabel(r'$R_{%i}$'%(i+1), size = 25)
-#         axes.xaxis.set_major_locator(plt.NullLocator())
-#         axes.yaxis.set_major_locator(plt.NullLocator())
-#     plt.tight_layout()
-#     fig1.savefig('Fisher_hist.pdf', bbox_inches = 'tight')
-#     plt.close('all')
-#

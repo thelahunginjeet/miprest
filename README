@@ -7,7 +7,6 @@ all available and actively maintained at github.com/thelahunginjeet:
 pycar
 pyica
 rpy2ica
-kbutil
 
 
 Example usage of the entire pipeline (data to decompose should be in an Nmixtures x Nsamples matrix X):
