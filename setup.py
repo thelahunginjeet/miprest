@@ -6,7 +6,7 @@ from distutils.extension import Extension
 import os
 
 setup(name='miprest',
-      version='1.0.0',
+      version='1.0.1',
       description='Python Package for Mixed ICA/PCA',
       author='Kevin S Brown and Ameya Akkalkotkar',
       author_email='kevin.s.brown@uconn.edu',
