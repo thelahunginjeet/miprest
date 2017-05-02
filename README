@@ -1,8 +1,9 @@
 Author : Kevin S. Brown (kevin.s.brown@uconn.edu, github.com/thelahunginjeet), Ameya Akkalkotkar
 
-A python package that can be used for Mixed ICA/PCA via the MIPReSt algorithm (see XXX).  This
-package depends on the following additional packages (in addition to standard stuff like numpy, scipy, etc.),
-all available and actively maintained at github.com/thelahunginjeet:
+A python package that can be used for Mixed ICA/PCA via the MIPReSt algorithm.  See
+A. Akkalkotkar and K. S. Brown, "An algorithm for separation of mixed sparse and Gaussian sources",
+Plos ONE, 12(4) e0175775. This package depends on the following additional packages (in addition to
+standard stuff like numpy, scipy, etc.), all available and actively maintained at github.com/thelahunginjeet:
 
 pycar
 pyica
@@ -38,6 +39,9 @@ the dimension of the sparse subspace, which I will call nsparse in what follows.
 
 # project out the sparse subspace
 >>Xtilde = mip.project_sparse(X,nsparse)
+
+# to harvest the sparse signals, use
+>>Asparse,Ssparse = mip.return_sparse(nsparse)
 
 # eigenvalue stopping rules can tell you the dimension of the Gaussian subspace
 # there are many rules to choose from (see stopping.py); I'm using broken stick here.

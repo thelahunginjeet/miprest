@@ -159,3 +159,12 @@ class MIPReSt(object):
         A = self.parent['A'][:,sortedindx[:nsparse]]
         S = self.parent['S'][sortedindx[:nsparse],:]
         return X - dot(A,S)
+
+
+    def return_sparse(self,nsparse):
+        '''
+        Return the first nsparse sparse components and their mixing matrix, in
+        the order A,S.
+        '''
+        sortedindx = argsort(self.parent['R'])[::-1]
+        return self.parent['A'][:,sortedindx[:nsparse]],self.parent['S'][sortedindx[:nsparse],:]
