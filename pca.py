@@ -19,6 +19,9 @@ def pca(X,k):
     number of samples (backwards from many PCA implementations).  If you want
     the p x N version, just transpose what comes out of this function.
 
+    The returned mixing matrix and signals (also called the scores), when
+    multiplied together, will give a ROW-CENTERED version of the data.
+
     k is the number of components to retain  (probably determined by some PCA stopping rule).
 
     Returns the matrix of eigenvectors of X (the "mixing matrix") and the "signals"
@@ -31,7 +34,7 @@ def pca(X,k):
     _,s,W = svd(C)
     # select first k columns
     W = W[:,:k]
-    # compute signal matrix
-    S = dot(W.T,X)
+    # compute signal/score matrix on centered data matrix
+    S = dot(W.T,cX)
     # need to do something about the units
     return W,S
