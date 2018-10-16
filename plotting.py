@@ -1,10 +1,11 @@
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from numpy import array,median
 
-def pylab_pretty_plot(lines=2,width=3,size=4,labelsize=16,markersize=10,fontsize=20,lfontsize=16,lframeon=False,usetex=True):
+def pretty_plot(lines=2,width=3,size=4,labelsize=16,markersize=10,fontsize=20,lfontsize=16,lframeon=False,usetex=True):
     """
-    Changes pylab plot defaults to get nicer plots - frame size, marker size, etc.
+    Changes matplotlib plot defaults to get nicer plots - frame size, marker size, etc.
 
     Parameters:
     ------------
@@ -18,24 +19,24 @@ def pylab_pretty_plot(lines=2,width=3,size=4,labelsize=16,markersize=10,fontsize
     usetex     : use latex for labels/text?
 
     """
-    pylab.rc("lines",linewidth=lines)
-    pylab.rc("lines",markeredgewidth=size/3)
-    pylab.rc("lines",markersize=markersize)
-    pylab.rc("ytick",labelsize=labelsize)
-    pylab.rc("ytick.major",pad=size)
-    pylab.rc("ytick.minor",pad=size)
-    pylab.rc("ytick.major",size=size*1.8)
-    pylab.rc("ytick.minor",size=size)
-    pylab.rc("xtick",labelsize=labelsize)
-    pylab.rc("xtick.major",pad=size)
-    pylab.rc("xtick.minor",pad=size)
-    pylab.rc("xtick.major",size=size*1.8)
-    pylab.rc("xtick.minor",size=size)
-    pylab.rc("axes",linewidth=width)
-    pylab.rc("text",usetex=usetex)
-    pylab.rc("font",size=fontsize)
-    pylab.rc("legend",fontsize=lfontsize)
-    pylab.rc("legend",frameon=lframeon)
+    mpl.rc("lines",linewidth=lines)
+    mpl.rc("lines",markeredgewidth=size/3)
+    mpl.rc("lines",markersize=markersize)
+    mpl.rc("ytick",labelsize=labelsize)
+    mpl.rc("ytick.major",pad=size)
+    mpl.rc("ytick.minor",pad=size)
+    mpl.rc("ytick.major",size=size*1.8)
+    mpl.rc("ytick.minor",size=size)
+    mpl.rc("xtick",labelsize=labelsize)
+    mpl.rc("xtick.major",pad=size)
+    mpl.rc("xtick.minor",pad=size)
+    mpl.rc("xtick.major",size=size*1.8)
+    mpl.rc("xtick.minor",size=size)
+    mpl.rc("axes",linewidth=width)
+    mpl.rc("text",usetex=usetex)
+    mpl.rc("font",size=fontsize)
+    mpl.rc("legend",fontsize=lfontsize)
+    mpl.rc("legend",frameon=lframeon)
 
 
 def plot_R_delta(R,deltaij):
@@ -55,7 +56,7 @@ def plot_R_delta(R,deltaij):
     fig.set_figwidth(10)
     fig.set_figheight(5)
     # plot
-    pylab_pretty_plot()
+    pretty_plot()
     ax.plot(signum.T + 0.1, R.T,'r.', label = r'$R_{ij}$', alpha = 0.5, mec = 'none')
     ax.plot(signum.T-0.1, deltaij.T,'k.', label = r'$\delta_{ij}$', alpha = 0.5,mec = 'none')
     ax.scatter(signum.T + 0.1, medR.T, s = 400, c = 'r', marker = '_', edgecolor = 'r', alpha = 1., linewidth = 2, rasterized = True)

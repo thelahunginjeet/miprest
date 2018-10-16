@@ -10,7 +10,6 @@ Created by Kevin Brown on 2016-09-19.
 """
 
 from pycar import raicar
-from rpy2ica import fastica as rfastica
 from pyica import fastica
 from numpy import ceil,tile,newaxis,delete,zeros,sort,argsort,dot
 from numpy.random import permutation
@@ -23,7 +22,7 @@ def decimate_matrix(X,dfactor):
     columns removed.  So if dfactor = 4 and X is 10 x 1000, the matrix
     returned will be size 10 x 250.
     '''
-    ndrop = X.shape[1] - ceil(X.shape[1]/dfactor)
+    ndrop = int(X.shape[1] - ceil(X.shape[1]/dfactor))
     dropcol = permutation(X.shape[1])[:ndrop]
     return delete(X,dropcol,1)
 
@@ -159,3 +158,12 @@ class MIPReSt(object):
         A = self.parent['A'][:,sortedindx[:nsparse]]
         S = self.parent['S'][sortedindx[:nsparse],:]
         return X - dot(A,S)
+
+
+    def return_sparse(self,nsparse):
+        '''
+        Return the first nsparse sparse components and their mixing matrix, in
+        the order A,S.
+        '''
+        sortedindx = argsort(self.parent['R'])[::-1]
+        return self.parent['A'][:,sortedindx[:nsparse]],self.parent['S'][sortedindx[:nsparse],:]
